@@ -241,7 +241,6 @@ a.custom-card:hover {
 
 .inputLogin {
   width: 300px;
-  margin-bottom: 20px;
   border: none;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -251,6 +250,8 @@ a.custom-card:hover {
   transition: 0.3s;
   box-shadow: inset 5px 5px 10px #a9a9aa77,
               inset -5px -5px 10px #ffffff7e;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .inputLogin:hover {
@@ -263,6 +264,12 @@ a.custom-card:hover {
   box-shadow: inset 20px 20px 60px #c5c5c5,
      inset -20px -20px 60px #ffffff;
   transition: 0.3s;
+}
+#logout {
+  height: 20px;
+  padding: 0px 5px;
+  font-size: 10px;
+  margin-top: 10px;
 }
 
 @keyframes rotate624 {
@@ -319,6 +326,7 @@ a.custom-card:hover {
   transition: all .3s;
   box-shadow: 6px 6px 12px #c5c5c5,
               -6px -6px 12px #ffffff;
+  margin-top: 15px;
 }
 
 .buttonNeuro:hover {
@@ -336,4 +344,8 @@ a.custom-card:hover {
 .buttonNeuro:active {
   box-shadow: 4px 4px 12px #c5c5c5,
               -4px -4px 12px #ffffff;
+}
+
+#g_id_onload {
+  margin-top: 20px;
 }
