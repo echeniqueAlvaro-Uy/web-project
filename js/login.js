@@ -37,23 +37,15 @@ function handleCredentialResponse(respuesta) {
   // to decode the credential response.
 
   console.log(respuesta.credential)
-  /*
-  const responsePayload = decodeJwtResponse(response.credential);
+  
+  const responsePayload = JSON.parse(decodeJwtResponse(respuesta.credential));
 
-  console.log("ID: " + responsePayload.sub);
-  console.log('Full Name: ' + responsePayload.name);
-  console.log('Given Name: ' + responsePayload.given_name);
-  console.log('Family Name: ' + responsePayload.family_name);
-  console.log("Image URL: " + responsePayload.picture);
-  console.log("Email: " + responsePayload.email);
-
-  localStorage.setItem("usuario", mail);
+  localStorage.setItem("usuario", responsePayload.email);
   window.location.href = 'index1.html';
-  */
+
 }
 
-//function decodeJwtResponse(credencial) {
-  //const x = jwt
-  //let payload;
-  //return payload;
-//}
+function decodeJwtResponse(credencial) {
+  let payload = atob(credencial.split('.')[1]);
+  return payload;
+}
