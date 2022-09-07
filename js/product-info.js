@@ -61,7 +61,6 @@ function mostrarDetalles(prod) {
     `
 
     document.getElementById("ficha-container").innerHTML = htmlContentToAppend;
-    document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
 };
 
 function loadImagesSlider(prod) {
@@ -90,4 +89,26 @@ function loadNavImagesButton(prod) {
 
 function mostrarComentarios(arrayComentarios) {
     console.log(arrayComentarios)
+    let htmlContentToAppend = '<div class="cardComments">';
+
+    for(let i = 0; i < arrayComentarios.length; i++) {
+
+        let comment = arrayComentarios[i];
+        htmlContentToAppend += `
+        <div onclick="" class="list-group-item list-group-item-action cursor-active">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h4 class="mb-1 text-start">${comment.score} Estrellas</h4>
+                        <small class="text-muted">${comment.dateTime}</small>
+                    </div>
+                    <p class="mb-1 text-start">El usuario ${comment.user} comenta:</p>
+                    <h5 class="mb-1 text-start">${comment.description}</h5  >
+                </div>
+            </div>
+        </div>       
+        `
+    }
+    htmlContentToAppend += '</div>';
+    document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
 };
