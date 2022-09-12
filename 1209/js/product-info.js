@@ -1,7 +1,6 @@
 
 let producto = undefined
 let comentariosProducto = []
-let localComment = []
 
 document.addEventListener("DOMContentLoaded", function(e){
     let idProducto = localStorage.getItem("prodID")
@@ -60,7 +59,7 @@ function mostrarDetalles(prod) {
         </div>
     </div>
     `
-   
+
     document.getElementById("ficha-container").innerHTML = htmlContentToAppend;
 };
 
@@ -74,7 +73,7 @@ function loadImagesSlider(prod) {
     `
     }
     return listImages;
-};
+}
 
 function loadNavImagesButton(prod) {
     let navButton = "";
@@ -86,100 +85,30 @@ function loadNavImagesButton(prod) {
     `
     }
     return navButton;
-};
+}
 
-function mostrarComentarios(comentariosProducto) {
-    let htmlContentToAppend = "";
-    if(localStorage.getItem("comentarios") != null) {
-        localComment = JSON.parse(localStorage.getItem("comentarios"))
-    }
-    else {
-        localComment = []
-    }   
-    //comentariosProducto.concat(localComment)
+function mostrarComentarios(arrayComentarios) {
+    console.log(arrayComentarios)
+    let htmlContentToAppend = '<div class="cardComments">';
 
-    for(let i = 0; i < comentariosProducto.length; i++){
-        let comment = comentariosProducto[i];
-        let stars = '';
-        stars += loadStars(comment.score);
-        console.log("description: " + comment.description)
-    
+    for(let i = 0; i < arrayComentarios.length; i++) {
+
+        let comment = arrayComentarios[i];
         htmlContentToAppend += `
-        <div onclick="" class="list-group-item list-group-item-action mb-2">
+        <div onclick="" class="list-group-item list-group-item-action cursor-active">
             <div class="row">
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
-                        <div>
-                            ${stars} 
-                        </div>                  
-                        <small class="design_date">${comment.dateTime}</small>
-                    </div> 
-                    <p class="mb-1 text-start diseño_user">${comment.user}:</p>
-                    <h5 class="mb-1 text-start com">${comment.description}</h5>
-                </div>       
-            </div>
-        </div>
-     `
-     document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
-    };
-
-    for(let i = 0; i < localComment.length; i++){
-        let comment = localComment[i];
-        let stars = '';
-        stars += loadStars(comment.score);
-
-        if (comment.product === localStorage.getItem("prodID")) {
-            htmlContentToAppend += `
-            <div onclick="" class="list-group-item list-group-item-action mb-2">
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <div>
-                                ${stars} 
-                            </div>                  
-                            <small class="design_date">${comment.dateTime}</small>
-                        </div> 
-                        <p class="mb-1 text-start diseño_user">${comment.user}:</p>
-                        <h5 class="mb-1 text-start com">${comment.description}</h5>
-                    </div>       
+                        <h4 class="mb-1 text-start">${comment.score} Estrellas</h4>
+                        <small class="text-muted">${comment.dateTime}</small>
+                    </div>
+                    <p class="mb-1 text-start">El usuario ${comment.user} comenta:</p>
+                    <h5 class="mb-1 text-start">${comment.description}</h5  >
                 </div>
             </div>
+        </div>       
         `
-        }  
-     document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
-    };
-};
-
-function loadStars(score) {
-    let htmlToAppend = '';
-
-    if (score >= 1) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 2) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 3) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 4) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 5) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    return htmlToAppend;
-};
-
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("btnComment").addEventListener('click', enviarComentario);
-  });
-
-function enviarComentario() {
-    try {
-
-        const comentarioNuevo = { 
-            dateTime: new Date(), 
-            description: document.getElementById("txtComentario").value, 
-            product: localStorage.getItem("prodID"), 
-            score: 4, 
-            user: localStorage.getItem("usuario") 
-        }
-        if (Array.isArray(localComment)) {
-            localComment.push(comentarioNuevo)
-        }
-        localStorage.setItem("comentarios", JSON.stringify(localComment))
-    } catch (error) {
-        alert(error)
     }
-}
+    htmlContentToAppend += '</div>';
+    document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
+};

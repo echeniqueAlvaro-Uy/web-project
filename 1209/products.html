@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"-->
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
@@ -43,38 +42,52 @@
       </div>
     </div>
   </nav>
-  <main>
+  <main class="pb-5">
+
+    <!--bloque agregado para mostar listado de productos-->
+    <div class="text-center p-4">
+      <h2>Productos</h2>
+      <p class="lead">Listado de productos de la categoría seleccionada</p>
+    </div>
     <div class="container">
       <div class="row">
-        <div class="" id="ficha-container">
+        <div class="col text-end">
+          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+            <input type="radio" class="btn-check" name="options" id="sortMountAsc">
+            <label class="btn btn-light" for="sortMountAsc"><i class="fas fa-sort-amount-up mr-1">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="sortMountDesc">
+            <label class="btn btn-light" for="sortMountDesc"><i class="fas fa-sort-amount-down mr-1">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
+            <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1">Rel.</i></label>
+          </div>
         </div>
-        <div class="mt-4 mb-4" id="ficha-container2">
+      </div>
+      <div class="row">
+        <div class="col">
+          <input id="buscar" type="text" class="form-control" placeholder="Buscar...">
         </div>
-        <div class="" id="ficha3"> 
-          <p>Tu opinion:</p>
-          <textarea id="txtComentario" rows="3" cols="50"></textarea>
-          <p>Puntuacion</p>
-          <!--input type="number" id="select"-->
-          <form>
-            <p class="clasificacion">
-              <input id="radio1" type="radio" name="estrellas" value="5">
-              <label for="radio1">★</label>
-              <input id="radio2" type="radio" name="estrellas" value="4">
-              <label for="radio2">★</label>
-              <input id="radio3" type="radio" name="estrellas" value="3">
-              <label for="radio3">★</label>
-              <input id="radio4" type="radio" name="estrellas" value="2">
-              <label for="radio4">★</label>
-              <input id="radio5" type="radio" name="estrellas" value="1">
-              <label for="radio5">★</label>
-            </p>
-            <div class="d-flex w-100 justify-content-between">
-              <div>
-                <button id="btnComment" class="btn btn-success"> Enviar</button>
+        <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+          <div class="row container p-0 m-0">
+            <div class="col">
+              <p class="font-weight-normal text-end my-2">Precio</p>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterPriceMin">
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterPriceMax">
+            </div>
+            <div class="col-3 p-0">
+              <div class="btn-group" role="group">
+                <button class="btn btn-light btn-block" id="rangeFilterPrice">Filtrar</button>
+                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
               </div>
             </div>
-          </form>
-          
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="list-group" id="prod-list-container">
         </div>
       </div>
     </div>
@@ -99,7 +112,7 @@
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
-  <script src="js/product-info.js"></script>
+  <script src="js/products.js"></script>
 </body>
 
 </html>
