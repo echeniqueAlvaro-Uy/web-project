@@ -205,10 +205,6 @@ a.custom-card:hover {
 }
 
 .container2 {
-  /*background-color: rgb(248, 249, 250);
-  border-radius: 10px;
-  height: 500px;
-  text-shadow: 1px 1px 2px grey;*/
   text-align: center;
   display: flex;
   justify-content: center;
@@ -368,12 +364,13 @@ a.custom-card:hover {
   margin-top: 50px;
   width: 750px;
   height: 550px;
-  /*padding: .8em;*/
   background: #f5f5f5;
   position: relative;
   overflow: visible;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border-radius: 10px;
+  background-color: rgb(248, 249, 250);
+  margin-left: 0px;
  }
  
  .cardProduct-img {
@@ -425,18 +422,23 @@ a.custom-card:hover {
  }
  
  .cardProduct-img:hover {
-  /*transform: translateY(-25%);*/
   box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
  }
  
  .cardProduct-button:hover {
+  /*
   border: 1px solid #ffcaa6;
   background-color: #ffcaa6;
+  */
+  border: 1px solid #f18101;
+  background-color: #f18101;
  }
  
  .price {
   color:rgba(17, 11, 182, 0.573);
-  font-size: 1.6em;
+  color: #0087F7;
+  font-size: 2.0em;
+  text-shadow: 1px 1px 2px black;
  }
 
 
@@ -507,10 +509,12 @@ ul.slider li:target {
   border-radius: 100%;
 }
 
-.com {
-  font-family: 'Raleway', serif !important;
-  font-size: medium;
-  margin-top: 10px;
+.comment {
+  background-color: rgb(248, 249, 250);
+}
+
+.comment:hover {
+  background-color: white;
 }
 
 .diseño_user {
@@ -562,7 +566,6 @@ label {
   direction: rtl;
   unicode-bidi: bidi-override;
   float: left;
-  font-size: 40px;
 }
 
 label:hover,
@@ -572,4 +575,38 @@ label:hover ~ label {
 
 input[type="radio"]:checked ~ label {
   color: orange;
+}
+
+.star {
+  font-size: 40px;
+}
+
+#relacionados {
+  display: contents;
+}
+
+.f-right {
+  display: contents;
+  float: right;
+}
+
+.center {
+  /*border: 1px solid #0087F7;*/
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+}
+
+.fc-gray {
+  color: gray;
+  text-shadow: 1px 1px 2px black;
+}
+
+.name {
+  color: gray;
+  text-shadow: 1px 1px 2px black;
+  font-weight: 900;
+  font-size: 1.4em;
+  line-height: 1.5;
 }

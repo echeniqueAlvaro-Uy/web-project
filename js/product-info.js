@@ -1,6 +1,4 @@
-
 let producto = undefined
-let comentariosProducto = []
 let localComment = []
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -11,17 +9,22 @@ document.addEventListener("DOMContentLoaded", function(e){
         if (resultObj.status === "ok"){
             producto = resultObj.data
             mostrarDetalles(producto)
+            mostrarProductosRelacionados(producto.relatedProducts)
         }
     });
 
     // Traer comentarios del producto
     getJSONData(PRODUCT_INFO_COMMENTS_URL + idProducto + '.json').then(function(resultObj){
         if (resultObj.status === "ok"){
-            comentariosProducto = resultObj.data
-            mostrarComentarios(comentariosProducto)
+            mostrarComentarios(resultObj.data)
         }
     });
 });
+
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
 
 function mostrarDetalles(prod) {
     console.log(prod);
@@ -35,7 +38,7 @@ function mostrarDetalles(prod) {
     sliderImages += '</ul>';
 
     htmlContentToAppend = `
-    <div class="cardProduct">
+    <div class="col cardProduct">
         <div class="containerSlider">
             <div class="row">
                 ${sliderImages}
@@ -88,6 +91,42 @@ function loadNavImagesButton(prod) {
     return navButton;
 };
 
+function mostrarProductosRelacionados(productosRelacionados) {
+    let htmlContentToAppend = `
+    <div class="col mt-5">
+        <div class="mt-3 center">
+            <div class="">
+                <h3 class="fc-gray">Productos Relacionados</h3>
+            </div>
+        </div>
+    `
+
+    for(let i = 0; i < productosRelacionados.length; i++) {
+        let relacionado = productosRelacionados[i];
+
+        console.log("Id: " + relacionado.id);
+        console.log("Image: " + relacionado.image);
+        console.log("Name: " + relacionado.name);
+    
+        htmlContentToAppend += `
+        <div onclick="setProdID(${relacionado.id})" class="center">
+            <div class="row">
+                <div class="w-100 center">
+                    <img src="${relacionado.image}" alt="${relacionado.name}" class="img-thumbnail w-50 mt-4 me-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mt-1">
+                    <h4 class="mb-1 me-4 name">${relacionado.name}</h4>
+                </div>
+            </div>
+        </div>
+        `
+    };
+    htmlContentToAppend += '<div>';
+    document.getElementById("relacionados").innerHTML += htmlContentToAppend;
+}
+
 function mostrarComentarios(comentariosProducto) {
     let htmlContentToAppend = "";
     if(localStorage.getItem("comentarios") != null) {
@@ -96,41 +135,16 @@ function mostrarComentarios(comentariosProducto) {
     else {
         localComment = []
     }   
-    //comentariosProducto.concat(localComment)
+    allComments = comentariosProducto.concat(localComment);
 
-    for(let i = 0; i < comentariosProducto.length; i++){
-        let comment = comentariosProducto[i];
+    for(let i = 0; i < allComments.length; i++) {
+        let comment = allComments[i];
         let stars = '';
         stars += loadStars(comment.score);
-        console.log("description: " + comment.description)
     
-        htmlContentToAppend += `
-        <div onclick="" class="list-group-item list-group-item-action mb-2">
-            <div class="row">
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div>
-                            ${stars} 
-                        </div>                  
-                        <small class="design_date">${comment.dateTime}</small>
-                    </div> 
-                    <p class="mb-1 text-start diseño_user">${comment.user}:</p>
-                    <h5 class="mb-1 text-start com">${comment.description}</h5>
-                </div>       
-            </div>
-        </div>
-     `
-     document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
-    };
-
-    for(let i = 0; i < localComment.length; i++){
-        let comment = localComment[i];
-        let stars = '';
-        stars += loadStars(comment.score);
-
-        if (comment.product === localStorage.getItem("prodID")) {
+        if (comment.product == localStorage.getItem("prodID")) {
             htmlContentToAppend += `
-            <div onclick="" class="list-group-item list-group-item-action mb-2">
+            <div onclick="" class="list-group-item list-group-item-action mb-2 comment">
                 <div class="row">
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
@@ -144,9 +158,9 @@ function mostrarComentarios(comentariosProducto) {
                     </div>       
                 </div>
             </div>
-        `
-        }  
-     document.getElementById("ficha-container2").innerHTML = htmlContentToAppend;
+            `
+        }
+        document.getElementById("lista-comentarios").innerHTML = htmlContentToAppend;
     };
 };
 
@@ -169,7 +183,7 @@ function enviarComentario() {
     try {
 
         const comentarioNuevo = { 
-            dateTime: new Date(), 
+            dateTime: moment().format('YYYY-MM-DD HH:mm:ss'),
             description: document.getElementById("txtComentario").value, 
             product: localStorage.getItem("prodID"), 
             score: 4, 
