@@ -102,7 +102,7 @@ function loadNavImagesButton(prod) {
 function mostrarProductosRelacionados(productosRelacionados) {
     let htmlContentToAppend = `
     <div class="col mt-5">
-        <div class="mt-3 center">
+        <div class="mt-1 me-4 right">
             <div class="">
                 <h3 class="fc-gray">Productos Relacionados</h3>
             </div>
@@ -113,15 +113,15 @@ function mostrarProductosRelacionados(productosRelacionados) {
         let relacionado = productosRelacionados[i];
    
         htmlContentToAppend += `
-        <div onclick="setProdID(${relacionado.id})" class="center">
+        <div onclick="setProdID(${relacionado.id})" class="right">
             <div class="row">
-                <div class="w-100 center">
-                    <img id="imgRelacionado" src="${relacionado.image}" alt="${relacionado.name}" class="img-thumbnail w-50 mt-4 me-3 cursor-active shadow">
+                <div class="w-100 right">
+                    <img id="imgRelacionado" src="${relacionado.image}" alt="${relacionado.name}" class="img-thumbnail w-75 mt-4 me-3 cursor-active shadow">
                 </div>
             </div>
             <div class="row">
                 <div class="mt-1">
-                    <h4 class="mb-1 me-4 name">${relacionado.name}</h4>
+                    <h4 class="mb-2 me-4 name">${relacionado.name}</h4>
                 </div>
             </div>
         </div>
