@@ -38,6 +38,9 @@ function sortProducts(criteria, array){
 document.addEventListener("DOMContentLoaded", function(e){
     
     let idCategoria = localStorage.getItem("catID")
+    let category = JSON.parse(localStorage.getItem("category"));
+    document.getElementById("categoryTitle").innerHTML = category.name;
+    document.getElementById("categoryDescription").innerHTML = category.description;
     getJSONData(PRODUCTS_URL + idCategoria + '.json').then(function(resultObj){
         if (resultObj.status === "ok"){
             currentProductsArray = resultObj.data.products
@@ -46,11 +49,6 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
     
 });
-
-function setProdID(id) {
-    localStorage.setItem("prodID", id);
-    window.location = "product-info.html"
-}
 
 function showProductsList() {
 
@@ -136,12 +134,10 @@ document.getElementById("clearRangeFilter").addEventListener("click", function()
 });
 
 document.getElementById("rangeFilterPrice").addEventListener("click", function(){
+    
     //Obtengo el mínimo y máximo de los intervalos para filtrar por precio
-
     minPrice = document.getElementById("rangeFilterPriceMin").value;
-    console.log('minPrice:' + minPrice)
     maxPrice = document.getElementById("rangeFilterPriceMax").value;
-    console.log('maxPrice:' + maxPrice)
 
     if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
         minPrice = parseInt(minPrice);

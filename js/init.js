@@ -50,3 +50,30 @@ let getJSONData = function(url){
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("logout").addEventListener('click', cerrar);
 });
+
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html"
+};
+
+function setCat(category) {
+  localStorage.setItem("category", category);
+  let id = JSON.parse(category).id;
+  setCatID(id);
+}
+
+function setCatID(id) {
+  localStorage.setItem("catID", id);
+  window.location = "products.html"
+}
+
+function getCart() {
+  let cart = localStorage.getItem("productsInCart");
+  if(cart != null) {
+    productsInCart = JSON.parse(cart)
+  }
+  else {
+      productsInCart = []
+  }
+  return productsInCart;
+}
