@@ -39,8 +39,14 @@ document.addEventListener("DOMContentLoaded", function(e){
     
     let idCategoria = localStorage.getItem("catID")
     let category = JSON.parse(localStorage.getItem("category"));
-    document.getElementById("categoryTitle").innerHTML = category.name;
-    document.getElementById("categoryDescription").innerHTML = category.description;
+    if(category != null) {
+        document.getElementById("categoryTitle").innerHTML = category.name;
+        document.getElementById("categoryDescription").innerHTML = category.description;
+    }
+    else {
+        document.getElementById("categoryTitle").innerHTML = 'Productos';
+        document.getElementById("categoryDescription").innerHTML = 'Listado de productos de la categoría seleccionada';
+    }
     getJSONData(PRODUCTS_URL + idCategoria + '.json').then(function(resultObj){
         if (resultObj.status === "ok"){
             currentProductsArray = resultObj.data.products
