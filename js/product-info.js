@@ -127,7 +127,7 @@ function mostrarProductosRelacionados(productosRelacionados) {
         </div>
         `
     };
-    htmlContentToAppend += '<div>';
+    htmlContentToAppend += '</div>';
     document.getElementById("relacionados").innerHTML += htmlContentToAppend;
 };
 
