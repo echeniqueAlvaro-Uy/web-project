@@ -35,24 +35,41 @@ function agregarProductoAlCarrito(producto) {
 };
 
 function mostrarDetalles(prod) {
-    let htmlContentToAppend = "";
-    let sliderImages = '<ul class="slider">';
-    let navImages = '<ul class="menu">';
+    let htmlContentToAppend = `
+        <div class="col cardProduct center">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade w-75" data-bs-ride="carousel">
+                <div class="carousel-inner">
+    `;
 
-    sliderImages += loadImagesSlider(prod);
-    sliderImages += '</ul>';
-    navImages += loadNavImagesButton(prod);
-    sliderImages += '</ul>';
+    for(let i = 0; i < prod.images.length; i++){
+        let image = prod.images[i]
 
-    htmlContentToAppend = `
-    <div class="col cardProduct">
-        <div class="containerSlider">
-            <div class="row">
-                ${sliderImages}
+        if(i==0) {
+            htmlContentToAppend += `
+            <div class="carousel-item active" data-bs-interval="5000">
+                <img src="${image}" class="d-block w-100" alt="...">
             </div>
-            <div class="row">
-                ${navImages}
+        `
+        }
+        else {
+            htmlContentToAppend += `
+            <div class="carousel-item" data-bs-interval="5000">
+                <img src="${image}" class="d-block w-100" alt="...">
             </div>
+        `
+        }
+        
+    }
+    htmlContentToAppend += `
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+            </button>
         </div>
         <div class="cardProduct-info">
             <p class="cardProduct-title">${prod.name}</p>
@@ -69,34 +86,10 @@ function mostrarDetalles(prod) {
             </div>
         </div>
     </div>
-    `
+    `;
    
     document.getElementById("ficha-container").innerHTML = htmlContentToAppend;
     document.getElementById("btnCart").addEventListener('click', () => agregarProductoAlCarrito(prod));
-};
-
-function loadImagesSlider(prod) {
-    let listImages = "";
-    for(let i = 0; i < prod.images.length; i++){
-        listImages += `
-        <li id="slide${i}">
-            <img src="${prod.images[i]}"/>
-        </li>
-    `
-    }
-    return listImages;
-};
-
-function loadNavImagesButton(prod) {
-    let navButton = "";
-    for(let i = 0; i < prod.images.length; i++){
-        navButton += `
-        <li>
-            <a href="#slide${i}">${i+1}</a>
-        </li>
-    `
-    }
-    return navButton;
 };
 
 function mostrarProductosRelacionados(productosRelacionados) {

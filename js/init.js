@@ -15,7 +15,6 @@ function cerrar() {
 }
 
 function cargarMenu() {
-  console.log('estoy cargando el menú, en teoría!');
   let htmlContentToAppend = `
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     ` + usuario + `
