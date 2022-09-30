@@ -266,6 +266,7 @@ a.custom-card:hover {
      inset -20px -20px 60px #ffffff;
   transition: 0.3s;
 }
+
 #logout {
   height: 20px;
   padding: 0px 5px;
@@ -463,6 +464,7 @@ a.custom-card:hover {
 
 .checked {
  color: orange;
+ text-shadow: 1px 1px 2px black;
 }
 
 #ficha3 {
@@ -510,6 +512,7 @@ input[type="radio"]:checked ~ label {
 
 .star {
   font-size: 40px;
+  text-shadow: 1px 1px 2px black;
 }
 
 #relacionados {

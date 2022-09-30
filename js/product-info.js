@@ -61,14 +61,14 @@ function mostrarDetalles(prod) {
         
     }
     htmlContentToAppend += `
-            </div>
+        </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
         </div>
         <div class="cardProduct-info">
@@ -164,11 +164,11 @@ function mostrarComentarios(comentariosProducto) {
 function loadStars(score) {
     let htmlToAppend = '';
 
-    if (score >= 1) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 2) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 3) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 4) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
-    if (score >= 5) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
+    if (score >= 1) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
+    if (score >= 2) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
+    if (score >= 3) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
+    if (score >= 4) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
+    if (score >= 5) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
     //htmlToAppend += ' ' + score;
     return htmlToAppend;
 };
