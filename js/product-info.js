@@ -169,23 +169,31 @@ function loadStars(score) {
     if (score >= 3) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
     if (score >= 4) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
     if (score >= 5) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star"></span>'; }
+    //htmlToAppend += ' ' + score;
     return htmlToAppend;
 };
 
 function enviarComentario() {
     try {
+        let rate = 0;
+        let starSelection = Array.from(document.getElementsByName('estrellas')).filter(radio => radio.checked == true)[0];
 
+        if(starSelection != undefined) {
+            rate = starSelection.value;
+        }
+        
         const comentarioNuevo = { 
             dateTime: moment().format('YYYY-MM-DD HH:mm:ss'),
             description: document.getElementById("txtComentario").value, 
             product: localStorage.getItem("prodID"), 
-            score: 4, 
+            score: rate, 
             user: localStorage.getItem("usuario") 
         }
         if (Array.isArray(localComment)) {
             localComment.push(comentarioNuevo)
         }
         localStorage.setItem("comentarios", JSON.stringify(localComment))
+        
     } catch (error) {
         alert(error)
     }

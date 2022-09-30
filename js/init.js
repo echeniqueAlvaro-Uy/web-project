@@ -10,7 +10,7 @@ const EXT_TYPE = ".json";
 let usuario = localStorage.getItem("usuario");
 
 function cerrar() {
-  localStorage.removeItem("usuario")
+  localStorage.clear();
   window.location.href = 'index.html'
 }
 
