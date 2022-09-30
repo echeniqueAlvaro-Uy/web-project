@@ -141,7 +141,7 @@ function mostrarComentarios(comentariosProducto) {
     
         if (comment.product == localStorage.getItem("prodID")) {
             htmlContentToAppend += `
-            <div onclick="" class="list-group-item list-group-item-action mb-2 comment">
+            <div onclick="" class="list-group-item list-group-item-action mb-1 comment">
                 <div class="row">
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
@@ -164,11 +164,11 @@ function mostrarComentarios(comentariosProducto) {
 function loadStars(score) {
     let htmlToAppend = '';
 
-    if (score >= 1) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
-    if (score >= 2) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
-    if (score >= 3) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
-    if (score >= 4) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
-    if (score >= 5) { htmlToAppend += '<span class="fa fa-star checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star fc-gray"></span>'; }
+    if (score >= 1) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
+    if (score >= 2) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
+    if (score >= 3) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
+    if (score >= 4) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
+    if (score >= 5) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
     //htmlToAppend += ' ' + score;
     return htmlToAppend;
 };
