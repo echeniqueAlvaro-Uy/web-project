@@ -534,7 +534,9 @@ input[type="radio"]:checked ~ label {
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: start;
+  justify-content: center;
+  text-align: start;
+  background-color: transparent;
 }
 
 .center {
@@ -543,6 +545,8 @@ input[type="radio"]:checked ~ label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  background-color: transparent;
 }
 
 .right {
@@ -550,12 +554,21 @@ input[type="radio"]:checked ~ label {
   display: flex;
   flex-direction: column;
   align-items: end;
-  justify-content: end;
+  justify-content: center;
+  text-align: end;
+  background-color: transparent;
 }
 
 .fc-gray {
   color: gray;
   text-shadow: 1px 1px 2px black;
+}
+
+.fc-black {
+  color: black;
+  text-shadow: 1px 1px 2px black;
+  font-size: 1.6em;
+  text-align: start;
 }
 
 .name {
@@ -569,4 +582,24 @@ input[type="radio"]:checked ~ label {
 .shadow {
   box-shadow: 15px 15px 15px #bebebe,
               0px 0px 5px #b7b7b7;
+}
+
+.negrita {
+  font-weight: bold;
+}
+
+.quantity {
+  width: 70px;
+  height: 50px;
+  text-align: center;
+  background-color: #ffffff;
+  border-color: #949191;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.itemCarrito {
+  border-top: 3px solid #5b5d5e;
+  border-bottom: 1px solid #969797;
+  background-color: transparent;
 }

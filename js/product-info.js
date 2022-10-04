@@ -97,7 +97,7 @@ function mostrarProductosRelacionados(productosRelacionados) {
     <div class="col mt-5">
         <div class="mt-1 me-4 right">
             <div class="">
-                <h3 class="fc-gray">Productos Relacionados</h3>
+                <h3 class="fc-gray fs-3">Productos Relacionados</h3>
             </div>
         </div>
     `
