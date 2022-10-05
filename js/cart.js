@@ -19,9 +19,13 @@ function addProductsUserCart(carro) {
 
     // Obtengo los productos que el usuario haya agregado a su carrito, independientemente de los que se traigan desde la API
     let productsInUserCart = getCart();
+
+    // Controlar que el producto traído desde la API ya no esté cargado en el carrito almacenado en el local storage
+    // ...
     
-    // Agrago los productos del carrito del usuario a los traídos desde la API
+    // Agrego los productos del carrito del usuario a los traídos desde la API
     completeCart = carro.concat(productsInUserCart);
+
     mostrarCarrito(completeCart);
 }
 
@@ -60,19 +64,19 @@ function mostrarCarrito(carrito) {
             </div>
             <div class="row itemCarrito">
                 <div onclick="setProdID(${productInCart.id})" class="col left cursor-active me-3">
-                    <img src="${productInCart.image != undefined ? productInCart.image : productInCart.images[0]}" alt="${productInCart.description}" class="img-thumbnail">
+                    <img src="${productInCart.image}" alt="${productInCart.description}" class="img-thumbnail">
                 </div>
                 <div class="col left">
                     <h4 class="mb-1">${productInCart.name}</h4>
                 </div>
                 <div class="col ms-5 left">
-                    <h4 id="amount${i+1}" value="${productInCart.unitCost != undefined ? productInCart.unitCost : productInCart.cost}">${productInCart.currency} ${productInCart.unitCost != undefined ? productInCart.unitCost : productInCart.cost}</h4>
+                    <h4 id="amount${i+1}" value="${productInCart.unitCost}">${productInCart.currency} ${productInCart.unitCost}</h4>
                 </div>
                 <div class="col left">
-                    <input id="quantity${i+1}" onchange="changeQuantity(${i+1})" class="quantity" type="number" value="1"/>
+                    <input id="quantity${i+1}" onchange="changeQuantity(${i+1})" class="quantity" type="number" value="${productInCart.count}" min="1" placeholder="" required=""/>
                 </div>
                 <div class="col left">
-                    <h4 id="total${i+1}" class="mb-1 fw-bold">${productInCart.currency} ${productInCart.unitCost != undefined ? productInCart.unitCost : productInCart.cost}</h4>
+                    <h4 id="total${i+1}" class="mb-1 fw-bold">${productInCart.currency} ${productInCart.count * productInCart.unitCost}</h4>
                 </div>
             </div>
         </div>
@@ -83,15 +87,14 @@ function mostrarCarrito(carrito) {
 
 function changeQuantity(index) {
 
-    console.log('index: ' + index);
-    let amount = document.getElementById('amount'+index).value;
-    console.log('amount: ' + amount);
-    let quantity = parseInt(document.getElementById('quantity'+index).value);
-    console.log('quantity: ' + quantity);
-    let total = amount * quantity;
-    console.log('total: ' + total);
-
-    document.getElementById('total'+index).value = total;
-    document.getElementById('total'+index).text = total;
+    let cantidad = parseInt(document.getElementById('quantity'+index).value);
+    completeCart[index-1].count = cantidad
+    let productInCart = completeCart[index-1];
+    let moneda = productInCart.currency
+    let monto = productInCart.unitCost
+    completeCart[index-1].totalAmount = cantidad * monto;
+    let importeTotal = completeCart[index-1].totalAmount;
+    document.getElementById('total'+index).innerHTML = moneda + ' ' + importeTotal;
+    setCart(completeCart);
+    console.log(getCart());
 }
-

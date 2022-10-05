@@ -39,6 +39,60 @@
     <div class="container">
       <div id="container-cart" class="mt-5 pt-3 pb-3 text-center">
       </div>
+      <div>
+        <form class="needs-validation" id="shipping-info">
+
+          <!--hr class="mb-4"-->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <p class="fs-3">Tipo de envío</p>
+              <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                  <input id="premiumRadio" name="publicationType" type="radio" class="custom-control-input" checked="" required="">
+                  <label class="custom-control-label" for="premiumRadio">Premium: 2 a 5 días (15%)</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="expressRadio" name="publicationType" type="radio" class="custom-control-input" required="">
+                  <label class="custom-control-label" for="expressRadio">Express: 5 a 8 días (7%)</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="standardRadio" name="publicationType" type="radio" class="custom-control-input" required="">
+                  <label class="custom-control-label" for="standardRadio">Standard: 12 a 15 días (5%)</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="fs-3 mt-3">Dirección de envío</p>
+          <div class="row">
+            <div class="col-md-10 mb-3">
+              <label for="calleEnvio">Calle</label>
+              <input id="calleEnvio" name="calleEnvio" class="form-control" placeholder="" required="">
+              <div class="invalid-feedback">
+                Debe ingresar la calle
+              </div>
+            </div>
+            <div class="col-md-2 mb-3">
+              <label for="numeroEnvio">Número</label>
+              <input id="numeroEnvio" name="numeroEnvio" class="form-control" placeholder="" required="">
+              <div class="invalid-feedback">
+                Debe ingresar el número de puerta
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10 mb-3">
+              <label for="esquinaEnvio">Esquina</label>
+              <input id="esquinaEnvio" name="esquinaEnvio" class="form-control" placeholder="" required="">
+              <div class="invalid-feedback">
+                Debe ingresar la esquina
+              </div>
+            </div>
+          </div>         
+          <!--hr class="mb-4"-->
+          <button class="btn btn-success btn-lg mt-3 w-100" type="submit">Confirmar Compra</button>
+        </form>
+      </div>
     </div>
   </main>
   <footer class="text-muted">

@@ -414,6 +414,15 @@ a.custom-card:hover {
   font-size: 1.0em;
   padding-bottom: 10px;
  }
+
+ .cardProduct-bio {
+  font-size: 1.3em;
+  padding-bottom: 10px;
+  font-style: italic;
+  color: #949191;
+  border: none;
+  background-color: transparent;
+ }
  
  .cardProduct-button {
   border: 1px solid #252525;
@@ -602,4 +611,31 @@ input[type="radio"]:checked ~ label {
   border-top: 3px solid #5b5d5e;
   border-bottom: 1px solid #969797;
   background-color: transparent;
+}
+
+.instagram {
+  color:rgba(17, 11, 182, 0.573);
+  color: #f78000;
+  font-size: 2.6em;
+  text-shadow: 1px 1px 2px black;
+  font-weight: 800;
+  margin-top: 20px;
+}
+
+.linkedin {
+  color:rgba(17, 11, 182, 0.573);
+  color: #0087F7;
+  font-size: 2.6em;
+  text-shadow: 1px 1px 2px black;
+  font-weight: 800;
+  margin-top: 20px;
+}
+
+.socialNetwork {
+  font-weight: 800;
+  font-size: 1.2em;
+  line-height: 0.4;
+  text-align: center;
+  text-shadow: 1px 1px 2px grey;
+  color: white;
 }

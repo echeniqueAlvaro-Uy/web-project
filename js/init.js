@@ -5,6 +5,7 @@ const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
 const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
+const USER_PROFILE = "https://japceibal.github.io/emercado-api/profile/";
 const EXT_TYPE = ".json";
 
 let usuario = localStorage.getItem("usuario");
@@ -93,4 +94,8 @@ function getCart() {
       productsInCart = []
   }
   return productsInCart;
+}
+
+function setCart(carrito) {
+  localStorage.setItem("productsInCart", JSON.stringify(carrito))
 }

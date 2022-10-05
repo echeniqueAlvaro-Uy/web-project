@@ -27,8 +27,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function agregarProductoAlCarrito(producto) {
     let productsInCart = getCart();
+    let productoNormalizado = {
+        id: producto.id,
+        name: producto.name,
+        count: 1,
+        image: producto.images[0],
+        currency: producto.currency,
+        unitCost: producto.cost,
+        totalAmount: producto.cost
+    }
+
+    // Controlar que el producto que se quiere agregar ya no esté cargado en el carrito almacenado en el local storage
+    // ...
+
     if (Array.isArray(productsInCart)) {
-        productsInCart.push(producto)
+        productsInCart.push(productoNormalizado)
     }
     localStorage.setItem("productsInCart", JSON.stringify(productsInCart))
     window.location = "cart.html"
