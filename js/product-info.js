@@ -1,79 +1,88 @@
-let producto = undefined
-let localComment = []
+let producto = undefined;
+let localComment = [];
 
-document.addEventListener("DOMContentLoaded", function(e){
-    let idProducto = localStorage.getItem("prodID")
+document.addEventListener("DOMContentLoaded", function (e) {
+  let idProducto = localStorage.getItem("prodID");
 
-    // Traer detalle del producto
-    getJSONData(PRODUCT_INFO_URL + idProducto + '.json').then(function(resultObj){
-        if (resultObj.status === "ok"){
-            producto = resultObj.data
-            mostrarDetalles(producto)
-            mostrarProductosRelacionados(producto.relatedProducts)
-        }
-    });
+  // Traer detalle del producto
+  getJSONData(PRODUCT_INFO_URL + idProducto + ".json").then(function (
+    resultObj
+  ) {
+    if (resultObj.status === "ok") {
+      producto = resultObj.data;
+      mostrarDetalles(producto);
+      mostrarProductosRelacionados(producto.relatedProducts);
+    }
+  });
 
-    // Traer comentarios del producto
-    getJSONData(PRODUCT_INFO_COMMENTS_URL + idProducto + '.json').then(function(resultObj){
-        if (resultObj.status === "ok"){
-            mostrarComentarios(resultObj.data)
-        }
-    });
+  // Traer comentarios del producto
+  getJSONData(PRODUCT_INFO_COMMENTS_URL + idProducto + ".json").then(function (
+    resultObj
+  ) {
+    if (resultObj.status === "ok") {
+      mostrarComentarios(resultObj.data);
+    }
+  });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("btnComment").addEventListener('click', enviarComentario);
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("btnComment")
+    .addEventListener("click", enviarComentario);
 });
 
 function agregarProductoAlCarrito(producto) {
-    let productsInCart = getCart();
-    let productoNormalizado = {
-        id: producto.id,
-        name: producto.name,
-        count: 1,
-        image: producto.images[0],
-        currency: producto.currency,
-        unitCost: producto.cost,
-        totalAmount: producto.cost
-    }
+  let productsInCart = getCart();
+  let productoNormalizado = {
+    id: producto.id,
+    name: producto.name,
+    count: 1,
+    image: producto.images[0],
+    currency: producto.currency,
+    unitCost: producto.cost,
+    totalAmount: producto.cost,
+  };
 
-    // Controlar que el producto que se quiere agregar ya no esté cargado en el carrito almacenado en el local storage
-    // ...
+  // Controlar que el producto que se quiere agregar ya no esté cargado en el carrito almacenado en el local storage
+  if (Array.isArray(productsInCart)) {
+    let prodEncontradoEnCarrito = productsInCart.find(prod => prod.id == productoNormalizado.id);
 
-    if (Array.isArray(productsInCart)) {
-        productsInCart.push(productoNormalizado)
+    if(prodEncontradoEnCarrito === undefined) {
+        productsInCart.push(productoNormalizado);
     }
-    localStorage.setItem("productsInCart", JSON.stringify(productsInCart))
-    window.location = "cart.html"
-};
+    else {
+        prodEncontradoEnCarrito.count += 1;
+    }
+  }
+  localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
+  window.location = "cart.html";
+}
 
 function mostrarDetalles(prod) {
-    let htmlContentToAppend = `
+  let htmlContentToAppend = `
         <div class="col cardProduct center">
             <div id="carouselExampleFade" class="carousel slide carousel-fade w-75" data-bs-ride="carousel">
                 <div class="carousel-inner">
     `;
 
-    for(let i = 0; i < prod.images.length; i++){
-        let image = prod.images[i]
+  for (let i = 0; i < prod.images.length; i++) {
+    let image = prod.images[i];
 
-        if(i==0) {
-            htmlContentToAppend += `
+    if (i == 0) {
+      htmlContentToAppend += `
             <div class="carousel-item active" data-bs-interval="5000">
                 <img src="${image}" class="d-block w-100" alt="...">
             </div>
-        `
-        }
-        else {
-            htmlContentToAppend += `
+        `;
+    } else {
+      htmlContentToAppend += `
             <div class="carousel-item" data-bs-interval="5000">
                 <img src="${image}" class="d-block w-100" alt="...">
             </div>
-        `
-        }
-        
+        `;
     }
-    htmlContentToAppend += `
+  }
+  htmlContentToAppend += `
         </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -100,25 +109,27 @@ function mostrarDetalles(prod) {
         </div>
     </div>
     `;
-   
-    document.getElementById("ficha-container").innerHTML = htmlContentToAppend;
-    document.getElementById("btnCart").addEventListener('click', () => agregarProductoAlCarrito(prod));
-};
+
+  document.getElementById("ficha-container").innerHTML = htmlContentToAppend;
+  document
+    .getElementById("btnCart")
+    .addEventListener("click", () => agregarProductoAlCarrito(prod));
+}
 
 function mostrarProductosRelacionados(productosRelacionados) {
-    let htmlContentToAppend = `
+  let htmlContentToAppend = `
     <div class="col mt-5">
         <div class="mt-1 me-4 right">
             <div class="">
                 <h3 class="fc-gray fs-3">Productos Relacionados</h3>
             </div>
         </div>
-    `
+    `;
 
-    for(let i = 0; i < productosRelacionados.length; i++) {
-        let relacionado = productosRelacionados[i];
-   
-        htmlContentToAppend += `
+  for (let i = 0; i < productosRelacionados.length; i++) {
+    let relacionado = productosRelacionados[i];
+
+    htmlContentToAppend += `
         <div onclick="setProdID(${relacionado.id})" class="right">
             <div class="row">
                 <div class="w-100 right">
@@ -131,29 +142,28 @@ function mostrarProductosRelacionados(productosRelacionados) {
                 </div>
             </div>
         </div>
-        `
-    };
-    htmlContentToAppend += '</div>';
-    document.getElementById("relacionados").innerHTML += htmlContentToAppend;
-};
+        `;
+  }
+  htmlContentToAppend += "</div>";
+  document.getElementById("relacionados").innerHTML += htmlContentToAppend;
+}
 
 function mostrarComentarios(comentariosProducto) {
-    let htmlContentToAppend = "";
-    if(localStorage.getItem("comentarios") != null) {
-        localComment = JSON.parse(localStorage.getItem("comentarios"))
-    }
-    else {
-        localComment = []
-    }   
-    allComments = comentariosProducto.concat(localComment);
+  let htmlContentToAppend = "";
+  if (localStorage.getItem("comentarios") != null) {
+    localComment = JSON.parse(localStorage.getItem("comentarios"));
+  } else {
+    localComment = [];
+  }
+  allComments = comentariosProducto.concat(localComment);
 
-    for(let i = 0; i < allComments.length; i++) {
-        let comment = allComments[i];
-        let stars = '';
-        stars += loadStars(comment.score);
-    
-        if (comment.product == localStorage.getItem("prodID")) {
-            htmlContentToAppend += `
+  for (let i = 0; i < allComments.length; i++) {
+    let comment = allComments[i];
+    let stars = "";
+    stars += loadStars(comment.score);
+
+    if (comment.product == localStorage.getItem("prodID")) {
+      htmlContentToAppend += `
             <div onclick="" class="list-group-item list-group-item-action mb-1 comment">
                 <div class="row">
                     <div class="col">
@@ -168,46 +178,68 @@ function mostrarComentarios(comentariosProducto) {
                     </div>       
                 </div>
             </div>
-            `
-        }
-        document.getElementById("lista-comentarios").innerHTML = htmlContentToAppend;
-    };
-};
+            `;
+    }
+    document.getElementById("lista-comentarios").innerHTML =
+      htmlContentToAppend;
+  }
+}
 
 function loadStars(score) {
-    let htmlToAppend = '';
+  let htmlToAppend = "";
 
-    if (score >= 1) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
-    if (score >= 2) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
-    if (score >= 3) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
-    if (score >= 4) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
-    if (score >= 5) { htmlToAppend += '<span class="fa fa-star star20 checked"></span>'; } else { htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>'; }
-    //htmlToAppend += ' ' + score;
-    return htmlToAppend;
-};
+  if (score >= 1) {
+    htmlToAppend += '<span class="fa fa-star star20 checked"></span>';
+  } else {
+    htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>';
+  }
+  if (score >= 2) {
+    htmlToAppend += '<span class="fa fa-star star20 checked"></span>';
+  } else {
+    htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>';
+  }
+  if (score >= 3) {
+    htmlToAppend += '<span class="fa fa-star star20 checked"></span>';
+  } else {
+    htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>';
+  }
+  if (score >= 4) {
+    htmlToAppend += '<span class="fa fa-star star20 checked"></span>';
+  } else {
+    htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>';
+  }
+  if (score >= 5) {
+    htmlToAppend += '<span class="fa fa-star star20 checked"></span>';
+  } else {
+    htmlToAppend += '<span class="fa fa-star star20 fc-gray"></span>';
+  }
+  //htmlToAppend += ' ' + score;
+  return htmlToAppend;
+}
 
 function enviarComentario() {
-    try {
-        let rate = 0;
-        let starSelection = Array.from(document.getElementsByName('estrellas')).filter(radio => radio.checked == true)[0];
+  try {
+    let rate = 0;
+    let starSelection = Array.from(
+      document.getElementsByName("estrellas")
+    ).filter((radio) => radio.checked == true)[0];
 
-        if(starSelection != undefined) {
-            rate = starSelection.value;
-        }
-        
-        const comentarioNuevo = { 
-            dateTime: moment().format('YYYY-MM-DD HH:mm:ss'),
-            description: document.getElementById("txtComentario").value, 
-            product: localStorage.getItem("prodID"), 
-            score: rate, 
-            user: localStorage.getItem("usuario") 
-        }
-        if (Array.isArray(localComment)) {
-            localComment.push(comentarioNuevo)
-        }
-        localStorage.setItem("comentarios", JSON.stringify(localComment))
-        
-    } catch (error) {
-        alert(error)
+    if (starSelection != undefined) {
+      rate = starSelection.value;
     }
-};
+
+    const comentarioNuevo = {
+      dateTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+      description: document.getElementById("txtComentario").value,
+      product: localStorage.getItem("prodID"),
+      score: rate,
+      user: localStorage.getItem("usuario"),
+    };
+    if (Array.isArray(localComment)) {
+      localComment.push(comentarioNuevo);
+    }
+    localStorage.setItem("comentarios", JSON.stringify(localComment));
+  } catch (error) {
+    alert(error);
+  }
+}

@@ -1,6 +1,7 @@
 let apiCart = []
 let completeCart = []
 let idUsuario = localStorage.getItem("usuario")
+
 // como el usuario actual no se carga en la base de datos, no puede obtenerse desde la API, por lo tanto se usa el ID provisto en la entrega.
 idUsuario = 25801;
 
@@ -10,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
     getJSONData(CART_INFO_URL + idUsuario + '.json').then(function(resultObj){
         if (resultObj.status === "ok"){
             apiCart = resultObj.data.articles
+            if(CART_BUY_URL.length > 0) {
+            }
         }
         addProductsUserCart(apiCart);
     })
@@ -18,13 +21,15 @@ document.addEventListener("DOMContentLoaded", function(e) {
 function addProductsUserCart(carro) {
 
     // Obtengo los productos que el usuario haya agregado a su carrito, independientemente de los que se traigan desde la API
-    let productsInUserCart = getCart();
+    completeCart = getCart();
 
-    // Controlar que el producto traído desde la API ya no esté cargado en el carrito almacenado en el local storage
-    // ...
-    
-    // Agrego los productos del carrito del usuario a los traídos desde la API
-    completeCart = carro.concat(productsInUserCart);
+    // Controlar que los productos traídos desde la API ya no estén cargados en el carrito almacenado en el local storage
+    for(let producto of carro) {
+        let prodEncontradoEnCarro = completeCart.find(prod => prod.id == producto.id);
+        if(prodEncontradoEnCarro === undefined) {
+            completeCart.push(producto)
+        }
+    }
 
     mostrarCarrito(completeCart);
 }
@@ -96,5 +101,5 @@ function changeQuantity(index) {
     let importeTotal = completeCart[index-1].totalAmount;
     document.getElementById('total'+index).innerHTML = moneda + ' ' + importeTotal;
     setCart(completeCart);
-    console.log(getCart());
+    console.log(completeCart)
 }
