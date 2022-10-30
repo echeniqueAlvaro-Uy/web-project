@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     // Traer info del usuario
     /*
-    getJSONData(USER_PROFILE + usuario + '.json').then(function(resultObj){
+    getJSONData(USER_PROFILE + usuario + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok"){
             dataUser = resultObj.data
             mostrarPerfilUsuario(dataUser)

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         document.getElementById("categoryTitle").innerHTML = 'Productos';
         document.getElementById("categoryDescription").innerHTML = 'Listado de productos de la categoría seleccionada';
     }
-    getJSONData(PRODUCTS_URL + idCategoria + '.json').then(function(resultObj){
+    getJSONData(PRODUCTS_URL + idCategoria + EXT_TYPE).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentProductsArray = resultObj.data.products
             showProductsList()

@@ -1,16 +1,24 @@
 const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL =
-  "https://japceibal.github.io/emercado-api/sell/publish.json";
+const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
 const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
 const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL =
-  "https://japceibal.github.io/emercado-api/products_comments/";
+const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const USER_PROFILE = "https://japceibal.github.io/emercado-api/profile/";
 const EXT_TYPE = ".json";
+const DOLLAR_PRICE = 40.0;
+const PAGO_TARJETA = 'tarjeta';
+const PAGO_BANCO = 'banco';
+const FORMA_PAGO_TARJETA = 'Tarjeta de crédito';
+const FORMA_PAGO_BANCO = 'Transferencia bancaria';
+const FORMA_PAGO_DEFAULT = 'No has seleccionado';
 
 let usuario = localStorage.getItem("usuario");
+
+if (localStorage.getItem('formaPago') === null) {
+  localStorage.setItem('formaPago', FORMA_PAGO_DEFAULT);
+}
 
 function cerrar() {
   localStorage.clear();
@@ -32,9 +40,7 @@ function cargarMenu() {
     </ul>
     `;
   document.getElementById("perfil").innerHTML = htmlContentToAppend;
-  document
-    .getElementById("link-logout")
-    .addEventListener("click", () => cerrar());
+  document.getElementById("link-logout").addEventListener("click", () => cerrar());
 }
 
 let showSpinner = function () {
@@ -92,14 +98,24 @@ function setCatID(id) {
 
 function getCart() {
   let cart = localStorage.getItem("productsInCart");
-  if (cart != null) {
-    productsInCart = JSON.parse(cart);
-  } else {
-    productsInCart = [];
+  if(cart == null) {
+    cart = [];
+    setCart(cart);
+    return cart;
   }
-  return productsInCart;
+  else {
+    return JSON.parse(cart);
+  }
 }
 
 function setCart(carrito) {
   localStorage.setItem("productsInCart", JSON.stringify(carrito));
+}
+
+function vaciarCarrito() {
+  localStorage.removeItem("productsInCart");
+}
+
+function returnHomePage() {
+  window.location = "index1.html"
 }

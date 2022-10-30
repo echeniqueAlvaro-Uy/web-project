@@ -67,7 +67,7 @@ function showCategoriesList(){
 
     for(let i = 0; i < currentCategoriesArray.length; i++){
         let category = currentCategoriesArray[i];
-        document.getElementById("itemCategory"+category.id).addEventListener('click', () => setCat(JSON.stringify(category)));
+        document.getElementById("itemCategory"+category.id)?.addEventListener('click', () => setCat(JSON.stringify(category)));
     }
 }
 

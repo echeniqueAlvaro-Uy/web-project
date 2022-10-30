@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   let idProducto = localStorage.getItem("prodID");
 
   // Traer detalle del producto
-  getJSONData(PRODUCT_INFO_URL + idProducto + ".json").then(function (
+  getJSONData(PRODUCT_INFO_URL + idProducto + EXT_TYPE).then(function (
     resultObj
   ) {
     if (resultObj.status === "ok") {
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   });
 
   // Traer comentarios del producto
-  getJSONData(PRODUCT_INFO_COMMENTS_URL + idProducto + ".json").then(function (
+  getJSONData(PRODUCT_INFO_COMMENTS_URL + idProducto + EXT_TYPE).then(function (
     resultObj
   ) {
     if (resultObj.status === "ok") {
@@ -52,9 +52,10 @@ function agregarProductoAlCarrito(producto) {
     }
     else {
         prodEncontradoEnCarrito.count += 1;
+        prodEncontradoEnCarrito.totalAmount += productoNormalizado.totalAmount;
     }
   }
-  localStorage.setItem("productsInCart", JSON.stringify(productsInCart));
+  setCart(productsInCart);
   window.location = "cart.html";
 }
 
