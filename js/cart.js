@@ -120,7 +120,6 @@ function desplegarModal() {
 
 function cargarDatosFormaPago() {
     let formaPago = localStorage.getItem('formaPago');
-    console.log(formaPago)
     if (formaPago === FORMA_PAGO_TARJETA) {
         document.getElementById('cardRadio').checked = true;
         let datosTarjeta = JSON.parse(localStorage.getItem('objDatosTarjeta'));
@@ -202,17 +201,9 @@ function validarFormularioFormaPago() {
             localStorage.setItem('objDatosTransBancaria', JSON.stringify(objDatosTransBancaria));
         }
         document.getElementById('paymentType').innerText = formaPago;
-        const att = document.createAttribute("data-bs-dismiss");
-        att.value = "modal";
-        btnGuardar.setAttributeNode(att);
+        validarMetodoPago();
+        document.getElementById('btnCloseModal').click();
     }
-    else {
-        const attr = btnGuardar.getAttributeNode("data-bs-dismiss");
-        if (attr !== null) {
-            btnGuardar.removeAttributeNode(attr);
-        }
-    }
-    btnGuardar.dispatchEvent(new Event('onsubmit'));
 }
 
 function confirmarCompra() {
@@ -271,12 +262,32 @@ function mostrarCarrito(carrito) {
         mostrarMensaje('No hay productos en su carrito', false, 'alert-danger');
     }
     else {
-        let htmlContentToAppend = `     
+        let htmlContentToAppend = `
             <div class="row">
                 <h3 class="fc-gray fs-1 mb-5">Carrito de Compras</h3>
             </div>
             <div class="row">
                 <h3 class="fc-black fs-2 mt-2 mb-3">Articulos a Comprar</h3>
+            </div>   
+            <div class="mt-4">
+                <div class="row titulosCarrito text-white pt-2">
+                    <div class="col ms-1 left">
+                    </div>
+                    <div class="col-3 left">
+                        <h5 class="ms-2">Nombre</h5>
+                    </div>
+                    <div class="col-2 right">
+                        <h5 class="">Costo</h5>
+                    </div>
+                    <div class="col right">
+                        <h5 class="">Cantidad</h5>
+                    </div>
+                    <div class="col-2 right">
+                        <h5 class="">Subtotal</h5>
+                    </div>
+                    <div class="col w-25 center">
+                    </div>
+                </div>
             </div>
         `;
 
@@ -285,41 +296,44 @@ function mostrarCarrito(carrito) {
             let productInCart = carrito[i];
 
             htmlContentToAppend += `
-                <div class="mt-4 mb-2">
-                    <div class="row">
-                        <div class="col ms-3 left">
-                        </div>
-                        <div class="col left">
-                            <h4 class="mb-1 nombre fw-bold">Nombre</h4>
-                        </div>
-                        <div class="col right">
-                            <h4 class="mb-1 fw-bold">Costo</h4>
-                        </div>
-                        <div class="col right">
-                            <h4 class="mb-1 fw-bold">Cantidad</h4>
-                        </div>
-                        <div class="col right">
-                            <h4 class="mb-1 fw-bold">Subtotal</h4>
-                        </div>
-                        <div class="col w-25 center">
-                        </div>
-                    </div>
+                <div class="">
                     <div class="row itemCarrito">
-                        <div onclick="setProdID(${productInCart.id})" class="col left cursor-active ms-3">
+                        <div onclick="setProdID(${productInCart.id})" class="col left cursor-active ms-1">
                             <img src="${productInCart.image}" alt="${productInCart.description}" class="img-thumbnail">
                         </div>
-                        <div class="col left">
-                            <h4 class="mb-1 nombre">${productInCart.name}</h4>
+                        <div class="col-3 left">
+                            <h4 class="ms-2 mb-1 nombre">${productInCart.name}</h4>
                         </div>
-                        <div class="col right fontCalibri">
-                            <h4 id="amount${productInCart.id}" value="${productInCart.unitCost}">${productInCart.currency} ${formatearMonto(productInCart.unitCost)}</h4>
+
+                        <div class="col-2 right">
+                            <div class="row w-100">
+                                <div class="col-6 col-sm-4 left right fontCalibri">
+                                    <h4 id="currency${productInCart.id}" value="${productInCart.unitCost}">${productInCart.currency}</h4>
+                                </div>
+                                <div class="col right fontCalibri">
+                                    <h4 id="amount${productInCart.id}" value="${productInCart.unitCost}">${formatearMonto(productInCart.unitCost)}</h4>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="col right">
-                            <input id="quantity${productInCart.id}" onchange="cambiarCantidad(${productInCart.id})" class="quantity" type="number" value="${productInCart.count}" min="1" placeholder="" required=""/>
+                            <input id="quantity${productInCart.id}" onchange="cambiarCantidad(${productInCart.id})" class="quantity" type="number" value="${productInCart.count}" min="1" placeholder="" required/>
                         </div>
-                        <div class="col right fontCalibri">
+
+                        <div class="col-2 right">
+                            <div class="row w-100">
+                                <div class="col-6 col-sm-4 left right fontCalibri">
+                                    <h4>${productInCart.currency}</h4>
+                                </div>
+                                <div class="col right fontCalibri">
+                                    <h4 id="total${productInCart.id}" class="mb-1 fw-bold">${formatearMonto(productInCart.totalAmount)}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--div class="col right fontCalibri">
                             <h4 id="total${productInCart.id}" class="mb-1 fw-bold">${productInCart.currency} ${formatearMonto(productInCart.totalAmount)}</h4>
-                        </div>
+                        </div-->
                         <div class="col w-25 center">
                             <button id="btnBorrarItemCarrito" onclick='deleteProdInCart(${productInCart.id})' type="button" class="btn btn-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -330,7 +344,6 @@ function mostrarCarrito(carrito) {
                     </div>
                 </div>
             `
-
             document.getElementById("container-cart").innerHTML = htmlContentToAppend;
         }
 
@@ -415,7 +428,7 @@ function cambiarCantidad(prodId) {
         let monto = productInCart.unitCost
         productInCart.totalAmount = cantidad * monto;
         let importeTotal = productInCart.totalAmount;
-        document.getElementById('total'+prodId).innerHTML = moneda + ' ' + formatearMonto(importeTotal);
+        document.getElementById('total'+prodId).innerHTML = formatearMonto(importeTotal);
         setCart(completeCart);
     }
     calcularResumenCompra();

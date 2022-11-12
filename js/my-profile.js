@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 function mostrarPerfilUsuario(user) {
     let htmlContentToAppend = `
         <div class="col cardProduct center bg-dark">
-            <img src="${user.image}" width="150" class="rounded-circle mt-4">
+            <img src="${user.image}" width="150" class="rounded-circle mt-4 imgProfile">
             <div class="cardProduct-info">
                 <p class="cardProduct-title text-white">${user.name} ${user.surname}</p>
                 <p class="cardProduct-body text-white-50">${user.email}</p>

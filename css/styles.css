@@ -539,7 +539,6 @@ input[type="radio"]:checked ~ label {
 }
 
 .left {
-  /*border: 1px solid #0087F7;*/
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -549,7 +548,6 @@ input[type="radio"]:checked ~ label {
 }
 
 .center {
-  /*border: 1px solid #0087F7;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -559,7 +557,6 @@ input[type="radio"]:checked ~ label {
 }
 
 .right {
-  /*border: 1px solid #0087F7;*/
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -608,8 +605,20 @@ input[type="radio"]:checked ~ label {
 }
 
 .itemCarrito {
-  border-top: 3px solid #5b5d5e;
   border-bottom: 1px solid #969797;
+  background-color: transparent;
+}
+
+.titulosCarrito {
+  border-top: 1px solid #969797;
+  border-bottom: 3px solid #5b5d5e;
+  background-color: transparent;
+  color: black;
+  background-color: #8c8e8f;
+}
+
+.itemCarritoCard {
+  border: 1px solid rgb(212, 212, 212);
   background-color: transparent;
 }
 
@@ -666,4 +675,8 @@ input[type="radio"]:checked ~ label {
 .containerFormaPago {
   border-radius: 5px;
   padding-top: 5px;
+}
+
+.imgProfile {
+  border: 1px solid black;
 }
