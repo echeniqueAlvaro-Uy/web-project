@@ -21,8 +21,14 @@ if (localStorage.getItem('formaPago') === null) {
 }
 
 function cerrar() {
-  localStorage.clear();
-  window.location.href = "index.html";
+  limpiarRegistrosDelLocalStorage();  
+  window.location.href = 'index.html';
+}
+
+function limpiarRegistrosDelLocalStorage() {
+  //localStorage.clear();
+  localStorage.removeItem("usuario");
+  localStorage.removeItem("productsInCart");
 }
 
 function cargarMenu() {

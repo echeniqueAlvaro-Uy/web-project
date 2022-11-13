@@ -27,6 +27,21 @@ function validarFormulario(evento) {
   }
   else {
     localStorage.setItem("usuario", mail);
+    if(recuperarUsuario(mail) === undefined)
+    {
+      let nuevoUsuario = {
+        primerNombre : '',
+        segundoNombre : '',
+        primerApellido : '',
+        segundoApellido : '',
+        telefono : '',
+        avatar : '',
+        email : mail,
+        ig_account: '',
+        in_account: ''
+      }
+      agregarUsuario(nuevoUsuario)
+    }
     window.location.href = 'index1.html';
   }
 }
@@ -35,14 +50,27 @@ function handleCredentialResponse(respuesta) {
   // respuesta es un json que hay que procesarlo
   // decodeJwtResponse() is a custom function defined by you
   // to decode the credential response.
-
-  console.log(respuesta.credential)
   
   const responsePayload = JSON.parse(decodeJwtResponse(respuesta.credential));
+  //console.log(responsePayload)
 
   localStorage.setItem("usuario", responsePayload.email);
+  if(recuperarUsuario(responsePayload.email) === undefined)
+  {
+    let nuevoUsuario = {
+      primerNombre : responsePayload.given_name,
+      segundoNombre : '',
+      primerApellido : responsePayload.family_name,
+      segundoApellido : '',
+      telefono : '',
+      avatar : responsePayload.picture,
+      email : responsePayload.email,
+      ig_account: '@' + responsePayload.family_name + '.' + responsePayload.given_name,
+      in_account: responsePayload.family_name + '-' + responsePayload.given_name
+    }
+    agregarUsuario(nuevoUsuario)
+  }
   window.location.href = 'index1.html';
-
 }
 
 function decodeJwtResponse(credencial) {

@@ -678,5 +678,9 @@ input[type="radio"]:checked ~ label {
 }
 
 .imgProfile {
-  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  border: 3px solid #bebebe;
+  /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+  box-shadow: 5px 5px 15px #bebebe, 0px 0px 5px #b7b7b7;
 }
