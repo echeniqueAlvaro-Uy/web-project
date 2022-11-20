@@ -1,11 +1,17 @@
-const CATEGORIES_URL = "https://japceibal.github.io/emercado-api/cats/cat.json";
-const PUBLISH_PRODUCT_URL = "https://japceibal.github.io/emercado-api/sell/publish.json";
-const PRODUCTS_URL = "https://japceibal.github.io/emercado-api/cats_products/";
-const PRODUCT_INFO_URL = "https://japceibal.github.io/emercado-api/products/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/products_comments/";
-const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
-const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
-const USER_PROFILE = "https://japceibal.github.io/emercado-api/profile/";
+let DOMINIO = 'https://japceibal.github.io/emercado-api/';
+
+// Descomentar la línea de abajo si se quiere ir contra la API en servidor node local
+//DOMINIO = 'http:localhost:3000/'
+
+const CATEGORIES_URL = DOMINIO + 'cats/cat.json';
+const PUBLISH_PRODUCT_URL = DOMINIO + 'sell/publish.json';
+const PRODUCTS_URL = DOMINIO + 'cats_products/';
+const PRODUCT_INFO_URL = DOMINIO + 'products/';
+const PRODUCT_INFO_COMMENTS_URL = DOMINIO + 'products_comments/';
+const CART_INFO_URL = DOMINIO + 'user_cart/';
+const CART_BUY_URL = DOMINIO + 'cart/buy.json';
+const USER_PROFILE = DOMINIO + 'profile/';
+
 const EXT_TYPE = ".json";
 const DOLLAR_PRICE = 40.0;
 const PAGO_TARJETA = 'tarjeta';
@@ -58,6 +64,7 @@ let hideSpinner = function () {
 };
 
 let getJSONData = function (url) {
+  console.log('URL: ' + url)
   let result = {};
   showSpinner();
   return fetch(url)
