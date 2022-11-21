@@ -1,7 +1,7 @@
 let DOMINIO = 'https://japceibal.github.io/emercado-api/';
 
-// Descomentar la línea de abajo si se quiere ir contra la API en servidor node local
-//DOMINIO = 'http:localhost:3000/'
+// Dejar descomentada la línea de abajo si se quiere ir contra la API en servidor node local
+DOMINIO = 'http://localhost:4000/'
 
 const CATEGORIES_URL = DOMINIO + 'cats/cat.json';
 const PUBLISH_PRODUCT_URL = DOMINIO + 'sell/publish.json';

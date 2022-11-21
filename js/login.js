@@ -30,6 +30,7 @@ function validarFormulario(evento) {
     if(recuperarUsuario(mail) === undefined)
     {
       let nuevoUsuario = {
+        documento : '',
         primerNombre : '',
         segundoNombre : '',
         primerApellido : '',
@@ -37,8 +38,8 @@ function validarFormulario(evento) {
         telefono : '',
         avatar : '',
         email : mail,
-        ig_account: '',
-        in_account: ''
+        ig_account : '',
+        in_account : ''
       }
       agregarUsuario(nuevoUsuario)
     }
@@ -58,6 +59,7 @@ function handleCredentialResponse(respuesta) {
   if(recuperarUsuario(responsePayload.email) === undefined)
   {
     let nuevoUsuario = {
+      documento : '',
       primerNombre : responsePayload.given_name,
       segundoNombre : '',
       primerApellido : responsePayload.family_name,
@@ -65,8 +67,8 @@ function handleCredentialResponse(respuesta) {
       telefono : '',
       avatar : responsePayload.picture,
       email : responsePayload.email,
-      ig_account: '@' + responsePayload.family_name + '.' + responsePayload.given_name,
-      in_account: responsePayload.family_name + '-' + responsePayload.given_name
+      ig_account : '@' + responsePayload.family_name + '.' + responsePayload.given_name,
+      in_account : responsePayload.family_name + '-' + responsePayload.given_name
     }
     agregarUsuario(nuevoUsuario)
   }

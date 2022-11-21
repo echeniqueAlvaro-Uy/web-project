@@ -1,11 +1,14 @@
-let dataUser = undefined
+let dataUser = undefined;
 let usuarioLogueado;
-let txtNombre1 = document.getElementById('Nombre1')
-let txtNombre2 = document.getElementById('Nombre2')
-let txtApellido1 = document.getElementById('Apellido1')
-let txtApellido2 = document.getElementById('Apellido2')
-let txtEmail = document.getElementById('email')
-let txtTelefono = document.getElementById('telefono')
+let documento = document.getElementById('Documento');
+let txtNombre1 = document.getElementById('Nombre1');
+let txtNombre2 = document.getElementById('Nombre2');
+let txtApellido1 = document.getElementById('Apellido1');
+let txtApellido2 = document.getElementById('Apellido2');
+let txtEmail = document.getElementById('email');
+let txtTelefono = document.getElementById('telefono');
+let txtInstagram = document.getElementById('instagram');
+let txtLinkedIn = document.getElementById('linkedin');
 let imgPerfil;
 let imgData;
 let imgType;
@@ -34,7 +37,7 @@ function mostrarPerfilUsuario(user) {
                 <p class="cardProduct-body text-white-50">${user.email}</p>
                 <p class="cardProduct-bio mt-4 mb-4">${user.telefono}</p>
             </div>
-            <button onclick="cargarDatosEnForm()" class="btn btn-light mt-2 mb-4">Editar Perfil</button>
+            <button id="btnEditarPerfil" class="btn btn-light mt-2 mb-4">Editar Perfil</button>
             <div class="cardProduct-footer mb-4 center">
                 <div class="row d-flex w-100 justify-content-between">
                     <div class="col left bg-dark">
@@ -57,6 +60,7 @@ function mostrarPerfilUsuario(user) {
     `;
     document.getElementById("profile").innerHTML = htmlContentToAppend;
     imgPerfil = document.getElementById('imgPerfil');
+    document.getElementById("btnEditarPerfil").addEventListener("click", () => cargarDatosEnForm());
 }
 
 function cargarValidacionForm() {
@@ -72,8 +76,10 @@ function cargarValidacionForm() {
 }
 
 function cargarDatosEnForm() {
+    document.getElementById("btnEditarPerfil").hidden = true;
     usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
     document.getElementById('formPerfil').hidden = false;
+    documento.value = usuarioLogueado.documento;
     txtNombre1.value = usuarioLogueado.primerNombre;
     txtNombre2.value = usuarioLogueado.segundoNombre;
     txtApellido1.value = usuarioLogueado.primerApellido;
@@ -81,17 +87,23 @@ function cargarDatosEnForm() {
     txtTelefono.value = usuarioLogueado.telefono;
     imgPerfil.src = usuarioLogueado.avatar;
     txtEmail.value = usuarioLogueado.email;
+    txtInstagram.value = usuarioLogueado.ig_account;
+    txtLinkedIn.value = usuarioLogueado.in_account;
 }
 
 function guardarDatos() {
+    document.getElementById("btnEditarPerfil").hidden = false;
     usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
     let form = document.getElementById('formPerfil')
     if(form.checkValidity()){
+        usuarioLogueado.documento = documento.value;
         usuarioLogueado.primerNombre = txtNombre1.value;
         usuarioLogueado.segundoNombre = txtNombre2.value;
         usuarioLogueado.primerApellido = txtApellido1.value;
         usuarioLogueado.segundoApellido = txtApellido2.value;
         usuarioLogueado.telefono = txtTelefono.value;
+        usuarioLogueado.ig_account = txtInstagram.value;
+        usuarioLogueado.in_account = txtLinkedIn.value;
         actualizarUsuario(usuarioLogueado);
         
         htmlMensaje = `

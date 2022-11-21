@@ -222,6 +222,22 @@ function confirmarCompra() {
             }
         })
     }
+    registrarClienteEnServidor();
+}
+
+function registrarClienteEnServidor() {
+
+    usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
+
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(usuarioLogueado)
+    };
+      
+    fetch('http://localhost:4000/customers/registerCustomer', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
 }
 
 function addProductsUserCart(carro) {
