@@ -206,10 +206,36 @@ function validarFormularioFormaPago() {
     }
 }
 
+function registrarClienteEnServidor() {
+
+    usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
+
+    fetch(CUSTOMER_REGISTRATION, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuarioLogueado) 
+    })
+    .then(respuesta => {
+        if (respuesta.ok) {
+          return respuesta.json();
+        } 
+        else {
+          throw Error(respuesta.statusText);
+        }
+    })
+    .then(response => {
+        return JSON.stringify(response.msg);
+    })
+    .catch(err => console.log(err));
+}
+
 function confirmarCompra() {
 
     let formPrincipal = document.getElementById('formShippingInfo')
     let mensaje = "Felicitaciones!!!"
+    let mensajeCliente = "";
     if (validarMetodoPago() && formPrincipal.checkValidity()) {
         // Como la compra fue confirmada vacío el carrito y oculto los controles del form
         vaciarCarrito();
@@ -217,27 +243,38 @@ function confirmarCompra() {
         // Debe llamar a la API al endpoint CART_BUY_URL para obtener la respuesta del intento de compra
         getJSONData(CART_BUY_URL).then(function(resultObj){
             if (resultObj.status === "ok"){
-                mensaje += '<br>' + '<hr class="mb-4">' + '<br>' + resultObj.data.msg;
-                mostrarMensaje(mensaje, true, 'alert-success');
+                mensaje += '<br>' + '<hr class="mb-4">' + resultObj.data.msg;
+                if (entornoLocal()) {
+                    // Envio los datos del usuario al servidor para que se registre o actualice
+                    usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
+                    fetch(CUSTOMER_REGISTRATION, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usuarioLogueado) 
+                    })
+                    .then(respuesta => {
+                        if (respuesta.ok) {
+                        return respuesta.json();
+                        } 
+                        else {
+                        throw Error(respuesta.statusText);
+                        }
+                    })
+                    .then(response => {
+                        mensajeCliente = '<br>' + '<b>' + response.msg + '</b>';
+                        mensaje = mensaje + mensajeCliente;
+                        mostrarMensaje(mensaje, true, 'alert-success');
+                    })
+                    .catch(err => console.log(err));
+                }
+                else {
+                    mostrarMensaje(mensaje, true, 'alert-success');
+                }
             }
         })
     }
-    registrarClienteEnServidor();
-}
-
-function registrarClienteEnServidor() {
-
-    usuarioLogueado = recuperarUsuario(localStorage.getItem("usuario"));
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(usuarioLogueado)
-    };
-      
-    fetch('http://localhost:4000/customers/registerCustomer', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
 }
 
 function addProductsUserCart(carro) {

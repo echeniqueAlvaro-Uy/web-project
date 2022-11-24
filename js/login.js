@@ -1,6 +1,5 @@
-
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("formLogin").addEventListener('submit', validarFormulario); 
+  document.getElementById("formLogin").addEventListener('submit', validarFormulario);
 });
 
 function validarFormulario(evento) {
@@ -12,6 +11,7 @@ function validarFormulario(evento) {
   let errorPass = 'La contraseña no es válida'
   let mensajesDeError= [];
   evento.preventDefault();
+  setDominio(document.getElementById('entornoLocal').checked);
 
   if(mail === "") {
     mensajesDeError.push(errorMail);
@@ -52,6 +52,7 @@ function handleCredentialResponse(respuesta) {
   // decodeJwtResponse() is a custom function defined by you
   // to decode the credential response.
   
+  setDominio(document.getElementById('entornoLocal').checked);
   const responsePayload = JSON.parse(decodeJwtResponse(respuesta.credential));
   //console.log(responsePayload)
 

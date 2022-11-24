@@ -1,16 +1,12 @@
-let DOMINIO = 'https://japceibal.github.io/emercado-api/';
-
-// Dejar descomentada la línea de abajo si se quiere ir contra la API en servidor node local
-DOMINIO = 'http://localhost:4000/'
-
-const CATEGORIES_URL = DOMINIO + 'cats/cat.json';
-const PUBLISH_PRODUCT_URL = DOMINIO + 'sell/publish.json';
-const PRODUCTS_URL = DOMINIO + 'cats_products/';
-const PRODUCT_INFO_URL = DOMINIO + 'products/';
-const PRODUCT_INFO_COMMENTS_URL = DOMINIO + 'products_comments/';
-const CART_INFO_URL = DOMINIO + 'user_cart/';
-const CART_BUY_URL = DOMINIO + 'cart/buy.json';
-const USER_PROFILE = DOMINIO + 'profile/';
+const CATEGORIES_URL = getDOMINIO() + 'cats/cat.json';
+const PUBLISH_PRODUCT_URL = getDOMINIO() + 'sell/publish.json';
+const PRODUCTS_URL = getDOMINIO() + 'cats_products/';
+const PRODUCT_INFO_URL = getDOMINIO() + 'products/';
+const PRODUCT_INFO_COMMENTS_URL = getDOMINIO() + 'products_comments/';
+const CART_INFO_URL = getDOMINIO() + 'user_cart/';
+const CART_BUY_URL = getDOMINIO() + 'cart/buy.json';
+const USER_PROFILE = getDOMINIO() + 'profile/';
+const CUSTOMER_REGISTRATION = getDOMINIO() + 'customers/registerCustomer';
 
 const EXT_TYPE = ".json";
 const DOLLAR_PRICE = 40.0;
@@ -19,8 +15,11 @@ const PAGO_BANCO = 'banco';
 const FORMA_PAGO_TARJETA = 'Tarjeta de crédito';
 const FORMA_PAGO_BANCO = 'Transferencia bancaria';
 const FORMA_PAGO_DEFAULT = 'No has seleccionado';
-
 let usuario = localStorage.getItem("usuario");
+
+document.addEventListener("DOMContentLoaded", function () {
+  cargarMenu();
+});
 
 if (localStorage.getItem('formaPago') === null) {
   localStorage.setItem('formaPago', FORMA_PAGO_DEFAULT);
@@ -35,6 +34,12 @@ function limpiarRegistrosDelLocalStorage() {
   //localStorage.clear();
   localStorage.removeItem("usuario");
   localStorage.removeItem("productsInCart");
+  localStorage.removeItem("dominio");
+  localStorage.removeItem("catID");
+  localStorage.removeItem("prodID");
+  localStorage.removeItem("formaPago");
+  localStorage.removeItem("objDatosTransBancaria");
+  localStorage.removeItem("category");
 }
 
 function cargarMenu() {
@@ -64,7 +69,6 @@ let hideSpinner = function () {
 };
 
 let getJSONData = function (url) {
-  console.log('URL: ' + url)
   let result = {};
   showSpinner();
   return fetch(url)
@@ -88,10 +92,6 @@ let getJSONData = function (url) {
       return result;
     });
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-  cargarMenu();
-});
 
 function setProdID(id) {
   localStorage.setItem("prodID", id);
